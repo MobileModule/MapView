@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/x250"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_white_corner_5"
+    android:elevation="@dimen/x2"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="@dimen/x250"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/x15"
+            android:paddingRight="@dimen/x15"
+            android:paddingTop="@dimen/x8"
+            android:paddingBottom="@dimen/x8">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="APP权限声明"
+                android:textColor="#363636"
+                android:textSize="@dimen/x15"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x15"
+                android:layout_marginRight="@dimen/x15"
+                android:layout_marginBottom="@dimen/x6"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_content_tips"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|left"
+                    android:text="申请文件读写权限用于："
+                    android:textColor="#383838"
+                    android:textSize="@dimen/x13" />
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/x2"
+                    android:gravity="center_vertical|left"
+                    android:text="归档后将移动此生物“我的>生物档案”，同时自动解绑设备。"
+                    android:textColor="#9B9B9B"
+                    android:textSize="@dimen/x12"/>
+
+                <TextView
+                    android:id="@+id/tv_attention"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/x2"
+                    android:gravity="center_vertical|left"
+                    android:text="*该权限被拒绝后以上功能将无法正常使用"
+                    android:textColor="#E44F41"
+                    android:textSize="@dimen/x10"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#F0F0F0" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/x40"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_cancel"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_btn_left_corner_5"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="@string/permission_refuse_title"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/x13" />
+
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="#F0F0F0" />
+
+                    <TextView
+                        android:id="@+id/tv_confirm"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentBottom="true"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_btn_right_corner_5"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:text="@string/permission_agree_title"
+                        android:textColor="#FC6456"
+                        android:textSize="@dimen/x13" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

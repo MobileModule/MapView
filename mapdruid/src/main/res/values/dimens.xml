@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="map_controller_padding">10dp</dimen>
+    <dimen name="map_toolbox_menu_img">32dp</dimen>
+    <dimen name="map_toolbox_menu_card_radius">8dp</dimen>
+    <dimen name="map_toolbox_menu_padding">5dp</dimen>
+    <dimen name="map_toolbox_menu_margin">20dp</dimen>
+    <dimen name="map_toolbox_menu_img_padding">6dp</dimen>
+    <dimen name="map_toolbox_menu_text_margin">3dp</dimen>
+</resources>

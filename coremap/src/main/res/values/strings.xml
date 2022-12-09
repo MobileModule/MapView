@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_blank">--</string>
+    <string name="editor">Edit</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
+    <string name="china_build_error">Compilation type error, Chinese compilation does not support Google Maps, please repackage.</string>
+    <string name="dialog_tips">Tips</string>
+    <string name="dialog_confirm">OK</string>
+
+    <string name="permission_agree_title">Agree</string>
+    <string name="permission_refuse_title">Decline</string>
+    <string name="permission_gps_description">App only collects location information when it is running in the foreground to:</string>
+    <string name="permission_gps_title_1">1.Get the location of nearby devices</string>
+    <string name="permission_gps_title_2">2.Display your location on the map</string>
+    <string name="permission_gps_title_3">3.Navigation</string>
+    <string name="permission_gps_notice">* Above mentioned features are not available without the permissions</string>
+    <string name="location_permission_title">Location permission statement</string>
+</resources>

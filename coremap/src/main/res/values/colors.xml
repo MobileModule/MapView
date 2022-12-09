@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+    <color name="gray_66">#666666</color>
+    <color name="gray_cc">#CCCCCC</color>
+    <color name="fence_polyline">#5FC1D0</color>
+    <color name="fence_polygon_border_line">#69BECB</color>
+    <color name="fence_polygon_fill_line">#4669BECB</color>
+    <color name="fence_circle_mask">#80000000</color>
+    <color name="fence_circle_fill_line">#4669BECB</color>
+    <color name="fence_circle_border_line">#69BECB</color>
+    <color name="fence_rectangle_mask">#80000000</color>
+    <color name="fence_rectangle_border_line">#69BECB</color>
+    <color name="fence_rectangle_fill_line">#4669BECB</color>
+    <color name="location_border_line">#94BCF6</color>
+    <color name="location_fill_line">#4C94BCF6</color>
+    <color name="capture_title_color">#16B351</color>
+</resources>

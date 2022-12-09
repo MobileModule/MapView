@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_blank">--</string>
+    <string name="editor">编辑</string>
+    <string name="longitude">经度</string>
+    <string name="latitude">纬度</string>
+    <string name="china_build_error">编译类型错误，中国编译不支持Google地图，请重新打包。</string>
+    <string name="dialog_tips">提示</string>
+    <string name="dialog_confirm">确定</string>
+
+    <string name="permission_agree_title">同意</string>
+    <string name="permission_refuse_title">拒绝</string>
+    <string name="permission_gps_description">App 仅会在前台运行时收集位置信息以实现下列功能：</string>
+    <string name="permission_gps_title_1">1.获取附近设备位置</string>
+    <string name="permission_gps_title_2">2.在地图上显示您的位置</string>
+    <string name="permission_gps_title_3">3.导航</string>
+    <string name="permission_gps_notice">*该权限被拒绝后以上功能将无法正常使用</string>
+    <string name="location_permission_title">位置权限请求声明</string>
+</resources>

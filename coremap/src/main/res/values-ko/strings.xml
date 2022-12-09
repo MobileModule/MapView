@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_blank">--</string>
+    <string name="editor">편집하다</string>
+    <string name="longitude">경도</string>
+    <string name="latitude">위도</string>
+    <string name="china_build_error">Compilation type error, Chinese compilation does not support Google Maps, please repackage.</string>
+    <string name="dialog_tips">Tips</string>
+    <string name="dialog_confirm">OK</string>
+
+    <string name="permission_agree_title">동의하다</string>
+    <string name="permission_refuse_title">거부하다</string>
+    <string name="permission_gps_description">App 다음 기능을 달성하기 위해 프론트 데스크에서 실행할 때만 위치 정보 만 수집합니다：</string>
+    <string name="permission_gps_title_1">1.근처의 장비 위치를 얻으십시오</string>
+    <string name="permission_gps_title_2">2.지도에서 위치를 보여줍니다</string>
+    <string name="permission_gps_title_3">3.항해</string>
+    <string name="permission_gps_notice">*권한을 거부하면 위의 기능이 제대로 작동하지 않습니다</string>
+    <string name="location_permission_title">위치 권한 요청 선언</string>
+</resources>

@@ -1,0 +1,78 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+
+android {
+    compileSdkVersion androidVersions.compileSdkVersion
+    buildToolsVersion androidVersions.buildToolsVersion
+    defaultConfig {
+        minSdkVersion androidVersions.minSdkVersion
+        targetSdkVersion androidVersions.targetSdkVersion
+        versionCode androidVersions.versionCode
+        versionName androidVersions.versionName
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+def isChinaApp() {
+    String tskReqStr = gradle.getStartParameter().getTaskRequests().toString()
+    println "task map request-->"+tskReqStr.toString()
+    if(tskReqStr.toLowerCase().contains("china")){
+        println "build map-->china"
+        return true;
+    }
+    println "build map-->google"
+    return false;
+}
+
+dependencies {
+    implementation dependenciesList.Constraintlayout
+    implementation dependenciesList.Material
+    api project(':mapview:coremap')
+    if(isChinaApp()){
+        api dependenciesList.Mapbox
+        api dependenciesList.MapboxTurf
+        api dependenciesList.MapboxLocation
+        api project(':mapview:mapbox')
+    }else {
+        api 'com.google.android.gms:play-services-maps:18.0.2'
+        api project(':mapview:google-cluster')
+        api project(':mapview:mapgoogle')
+    }
+}
+
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.druid.map'
+                artifactId = 'maplib'
+            }
+        }
+    }
+}
+//task for Sonatype Nexus OSS
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+////            repository(
+////                    url: "${nexusUrl}/content/repositories/releases") {
+////                authentication(userName: nexusUsername, password: nexusPassword)
+////            }
+////            snapshotRepository(
+////                    url: "${nexusUrl}/content/repositories/snapshots") {
+////                authentication(userName: nexusUsername, password: nexusPassword)
+////            }
+//
+//            pom.version = "2.0.0.1"
+//            pom.artifactId = "spflib"
+//            pom.groupId = "it.polimi.spf"
+//        }
+//    }
+//}

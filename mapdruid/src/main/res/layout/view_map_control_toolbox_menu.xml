@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/view_toolbox_menu"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/map_toolbox_menu_padding"
+    android:background="@color/map_white"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal"
+    app:cardCornerRadius="@dimen/map_toolbox_menu_card_radius"
+    app:cardElevation="@dimen/map_toolbox_menu_text_margin">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/map_controller_padding"
+        android:paddingEnd="@dimen/map_controller_padding">
+
+        <LinearLayout
+            android:id="@+id/ll_toolbox_menu_cluster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/map_toolbox_menu_padding"
+            android:layout_marginBottom="@dimen/map_toolbox_menu_padding"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_toolbox_menu_cluster"
+                android:layout_width="@dimen/map_toolbox_menu_img"
+                android:layout_height="@dimen/map_toolbox_menu_img"
+                android:background="@drawable/shape_toolbox_menu_gray"
+                android:padding="@dimen/map_toolbox_menu_img_padding"
+                android:src="@drawable/toolbox_menu_cluster" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/map_toolbox_menu_text_margin"
+                android:text="@string/toolbox_menu_cluster"
+                android:textColor="@color/map_gray_99"
+                android:textSize="@dimen/map_controller_padding" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_toolbox_menu_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/map_toolbox_menu_margin"
+            android:layout_marginTop="@dimen/map_toolbox_menu_padding"
+            android:layout_marginBottom="@dimen/map_toolbox_menu_padding"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_toolbox_menu_point"
+                android:layout_width="@dimen/map_toolbox_menu_img"
+                android:layout_height="@dimen/map_toolbox_menu_img"
+                android:background="@drawable/shape_toolbox_menu_gray"
+                android:padding="@dimen/map_toolbox_menu_img_padding"
+                android:src="@drawable/toolbox_menu_point" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/map_toolbox_menu_text_margin"
+                android:text="@string/toolbox_menu_point"
+                android:textColor="@color/map_gray_99"
+                android:textSize="@dimen/map_controller_padding" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_toolbox_menu_heatmap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/map_toolbox_menu_margin"
+            android:layout_marginTop="@dimen/map_toolbox_menu_padding"
+            android:layout_marginBottom="@dimen/map_toolbox_menu_padding"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_toolbox_menu_heatmap"
+                android:layout_width="@dimen/map_toolbox_menu_img"
+                android:layout_height="@dimen/map_toolbox_menu_img"
+                android:background="@drawable/shape_toolbox_menu_gray"
+                android:padding="@dimen/map_toolbox_menu_img_padding"
+                android:src="@drawable/toolbox_menu_tracker" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/map_toolbox_menu_text_margin"
+                android:text="@string/toolbox_menu_heatmap"
+                android:textColor="@color/map_gray_99"
+                android:textSize="@dimen/map_controller_padding" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/map_controller_padding"
+            android:background="#EBECF0" />
+
+        <LinearLayout
+            android:id="@+id/ll_toolbox_menu_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/map_controller_padding"
+            android:layout_marginTop="@dimen/map_toolbox_menu_padding"
+            android:layout_marginBottom="@dimen/map_toolbox_menu_padding"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_toolbox_menu_line"
+                android:layout_width="@dimen/map_toolbox_menu_img"
+                android:layout_height="@dimen/map_toolbox_menu_img"
+                android:background="@drawable/shape_toolbox_menu_gray"
+                android:padding="@dimen/map_toolbox_menu_img_padding"
+                android:src="@drawable/toolbox_menu_line" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/map_toolbox_menu_text_margin"
+                android:text="@string/toolbox_menu_line"
+                android:textColor="@color/map_gray_99"
+                android:textSize="@dimen/map_controller_padding"
+                android:gravity="center_horizontal"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
