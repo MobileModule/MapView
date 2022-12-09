@@ -1,6 +1,5 @@
-plugins {
-    id 'com.android.library'
-}
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion androidVersions.compileSdkVersion
@@ -31,4 +30,17 @@ dependencies {
     implementation dependenciesList.MapboxPluginMarkerView
     implementation dependenciesList.Constraintlayout
     api project(':coremap')
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.druid.mapdruid'
+                artifactId = 'mapdruidlib'
+                version = '1.0.1'
+            }
+        }
+    }
 }

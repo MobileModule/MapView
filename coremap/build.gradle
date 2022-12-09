@@ -1,6 +1,5 @@
-plugins {
-    id 'com.android.library'
-}
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion androidVersions.compileSdkVersion
@@ -26,5 +25,18 @@ dependencies {
         api project(':dimen')
     }else {
         api dependenciesList.DimenX2
+    }
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.druid.mapcore'
+                artifactId = 'mapcorelib'
+                version = '1.0.1'
+            }
+        }
     }
 }

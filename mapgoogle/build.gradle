@@ -1,6 +1,5 @@
-plugins {
-    id 'com.android.library'
-}
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion androidVersions.compileSdkVersion
@@ -27,4 +26,17 @@ dependencies {
     implementation dependenciesList.GoogleLocation
     api project(':google-cluster')
     api project(':coremap')
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.druid.mapgoogle'
+                artifactId = 'mapgooglelib'
+                version = '1.0.1'
+            }
+        }
+    }
 }

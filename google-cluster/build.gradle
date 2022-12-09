@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+
 android {
     compileSdkVersion androidVersions.compileSdkVersion
     buildToolsVersion androidVersions.buildToolsVersion
@@ -35,4 +37,17 @@ android {
 dependencies {
     implementation dependenciesList.GoogleMap
     implementation dependenciesList.Appcompat
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.druid.googlecluster'
+                artifactId = 'googleclusterlib'
+                version = '1.0.1'
+            }
+        }
+    }
 }
