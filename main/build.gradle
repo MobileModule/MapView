@@ -40,6 +40,21 @@ android {
         abortOnError false
         checkReleaseBuilds false
     }
+
+    productFlavors {
+        main_china{
+            dimension "default"
+            manifestPlaceholders.put("BUILD_TYPE", "CHINA")//编译类型
+        }
+        productFlavors.all {
+            flavor -> flavor.manifestPlaceholders.put("CHANNEL_VALUE", name)
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
