@@ -32,16 +32,16 @@ def isChinaApp() {
 dependencies {
     implementation dependenciesList.Constraintlayout
     implementation dependenciesList.Material
-    api project(':mapview:coremap')
+    api project(':coremap')
     if(isChinaApp()){
         api dependenciesList.Mapbox
         api dependenciesList.MapboxTurf
         api dependenciesList.MapboxLocation
-        api project(':mapview:mapbox')
+        api project(':mapbox')
     }else {
         api 'com.google.android.gms:play-services-maps:18.0.2'
-        api project(':mapview:google-cluster')
-        api project(':mapview:mapgoogle')
+        api project(':google-cluster')
+        api project(':mapgoogle')
     }
 }
 
@@ -53,26 +53,9 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.druid.map'
                 artifactId = 'maplib'
+                version = '1.0.1'
             }
         }
     }
 }
-//task for Sonatype Nexus OSS
-//uploadArchives {
-//    repositories {
-//        mavenDeployer {
-////            repository(
-////                    url: "${nexusUrl}/content/repositories/releases") {
-////                authentication(userName: nexusUsername, password: nexusPassword)
-////            }
-////            snapshotRepository(
-////                    url: "${nexusUrl}/content/repositories/snapshots") {
-////                authentication(userName: nexusUsername, password: nexusPassword)
-////            }
-//
-//            pom.version = "2.0.0.1"
-//            pom.artifactId = "spflib"
-//            pom.groupId = "it.polimi.spf"
-//        }
-//    }
-//}
+

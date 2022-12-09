@@ -55,7 +55,6 @@ import com.google.maps.android.data.kml.KmlUtil;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,9 +70,6 @@ import java.util.Map;
 import java.util.Set;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 
 /**
  * An abstraction that shares the common properties of

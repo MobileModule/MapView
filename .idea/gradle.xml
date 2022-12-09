@@ -6,6 +6,18 @@
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/coremap" />
+            <option value="$PROJECT_DIR$/google-cluster" />
+            <option value="$PROJECT_DIR$/main" />
+            <option value="$PROJECT_DIR$/mapbox" />
+            <option value="$PROJECT_DIR$/mapdruid" />
+            <option value="$PROJECT_DIR$/mapgoogle" />
+            <option value="$PROJECT_DIR$/test" />
+          </set>
+        </option>
       </GradleProjectSettings>
     </option>
   </component>

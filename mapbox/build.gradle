@@ -30,5 +30,5 @@ dependencies {
     implementation dependenciesList.MapboxPluginAnnotation
     implementation dependenciesList.MapboxPluginMarkerView
     implementation dependenciesList.Constraintlayout
-    api project(':mapview:coremap')
+    api project(':coremap')
 }

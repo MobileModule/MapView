@@ -22,5 +22,9 @@ android {
 dependencies {
     implementation dependenciesList.Constraintlayout
     implementation dependenciesList.Material
-    api project(':dimen')
+    if(isLocalModule.toBoolean()) {
+        api project(':dimen')
+    }else {
+        api dependenciesList.DimenX2
+    }
 }

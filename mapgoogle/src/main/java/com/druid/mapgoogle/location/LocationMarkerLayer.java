@@ -7,7 +7,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.location.Location;
 
 import com.druid.mapcore.DruidMapView;
 import com.druid.mapcore.bean.LatLngBean;

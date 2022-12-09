@@ -25,7 +25,6 @@ import android.os.Handler;
 
 import com.druid.mapbox.utils.LatLngUtils;
 import com.druid.mapbox.utils.MapConstantUtils;
-import com.druid.mapbox.utils.MapImageSettingUtils;
 import com.druid.mapcore.DruidMapView;
 import com.druid.mapcore.cluster.ClusterPointLayer;
 import com.druid.mapcore.bean.ClusterMarkerBean;

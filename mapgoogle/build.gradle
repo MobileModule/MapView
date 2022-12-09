@@ -25,6 +25,6 @@ android {
 dependencies {
     implementation dependenciesList.GoogleMap
     implementation dependenciesList.GoogleLocation
-    api project(':mapview:google-cluster')
-    api project(':mapview:coremap')
+    api project(':google-cluster')
+    api project(':coremap')
 }

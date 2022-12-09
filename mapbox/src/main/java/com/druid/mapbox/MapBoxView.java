@@ -25,7 +25,6 @@ import com.druid.mapbox.heatmap.MapBoxHeatMapLayer;
 import com.druid.mapbox.line.DefineLineLayer;
 import com.druid.mapbox.location.MapBoxLocationEngine;
 import com.druid.mapbox.navigate.DefineNavigateLayer;
-import com.druid.mapbox.tile.CustomTileSet;
 import com.druid.mapbox.utils.LocationParseUtils;
 import com.druid.mapbox.utils.MapConstantUtils;
 import com.druid.mapbox.utils.MapImageSettingUtils;

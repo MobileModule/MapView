@@ -2,7 +2,6 @@ package com.druid.mapgoogle.fence.rectangle;
 
 import android.content.Context;
 import android.graphics.Point;
-import android.graphics.PointF;
 import android.widget.RelativeLayout;
 
 import com.druid.mapcore.DruidMapView;

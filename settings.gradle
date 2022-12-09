@@ -1,5 +1,13 @@
-include 'app-updater'
 include 'main'
-  
+include ':mapbox'
+include ':mapdruid'
+include ':coremap'
+include ':mapgoogle'
+include ':google-cluster'
+include ':test'
+if(isLocalModule.toBoolean()){
+    include ':dimen'
+    project(':dimen').projectDir = file('./MobileModule/dimenx2/dimen')
+}
 
 

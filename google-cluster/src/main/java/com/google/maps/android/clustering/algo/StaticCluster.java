@@ -22,7 +22,6 @@ import com.google.maps.android.clustering.ClusterItem;
 
 import java.util.LinkedHashSet;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * A cluster whose center is determined upon creation.

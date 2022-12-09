@@ -10,7 +10,6 @@ import android.os.Looper;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
-import com.druid.mapbox.utils.LatLngUtils;
 import com.druid.mapbox.utils.LocationParseUtils;
 import com.druid.mapcore.bean.LatLngBean;
 import com.druid.mapcore.bean.LocationBean;
