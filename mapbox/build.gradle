@@ -37,8 +37,8 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.druid.mapdruid'
-                artifactId = 'mapdruidlib'
+                groupId = 'com.druid.mapbox'
+                artifactId = 'mapboxlib'
                 version = '1.0.1'
             }
         }
