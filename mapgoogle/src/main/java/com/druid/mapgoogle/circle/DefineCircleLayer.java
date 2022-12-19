@@ -62,9 +62,14 @@ public class DefineCircleLayer extends CircleDrawLayer implements CircleDrawLaye
     @Override
     public void setFenceCircle(FenceCoreBean fence_) {
         this.fence = fence_;
+        if(circle!=null){
+            circle.remove();
+            circle=null;
+        }
         drawFencePolygonLayer(true);
     }
 
+    private Circle circle;
     private void drawFencePolygonLayer(boolean needZoom) {
         if (fence != null) {
             if (fence.type.equals(FenceType.Round)) {
@@ -81,7 +86,7 @@ public class DefineCircleLayer extends CircleDrawLayer implements CircleDrawLaye
                         circleOptions.fillColor(MapImageSettingUtils.getFencePolygonFillColor(context));
                         circleOptions.strokeWidth(MapImageSettingUtils.FENCE_GOOGLE_LINE_WIDTH);
                         circleOptions.strokeColor(MapImageSettingUtils.getFencePolygonBorderColor(context));
-                        Circle circle = googleMap.addCircle(circleOptions);
+                        circle = googleMap.addCircle(circleOptions);
                         circle.setTag(fence);
                         circle.setClickable(false);
                     }

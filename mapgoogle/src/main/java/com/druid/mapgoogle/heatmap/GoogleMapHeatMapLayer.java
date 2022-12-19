@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Color;
 
 import com.druid.mapcore.DruidMapView;
+import com.druid.mapcore.bean.HeatMapColorBean;
+import com.druid.mapcore.bean.HeatMapSetBean;
 import com.druid.mapcore.bean.LatLngBean;
 import com.druid.mapcore.heatmap.HeatMapLayer;
 import com.druid.mapcore.heatmap.HeatMapLayerApi;
@@ -13,6 +15,7 @@ import com.druid.mapcore.interfaces.MapInfoWindowClickListener;
 import com.druid.mapcore.interfaces.MapLoadedListener;
 import com.druid.mapcore.interfaces.MapMarkerClickListener;
 import com.druid.mapcore.interfaces.MapOnScaleListener;
+import com.druid.mapcore.utils.ColorUtils;
 import com.druid.mapgoogle.utils.LatLngUtils;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -23,6 +26,7 @@ import com.google.maps.android.heatmaps.Gradient;
 import com.google.maps.android.heatmaps.HeatmapTileProvider;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GoogleMapHeatMapLayer extends HeatMapLayer implements HeatMapLayerApi<MapView, GoogleMap> {
@@ -61,6 +65,13 @@ public class GoogleMapHeatMapLayer extends HeatMapLayer implements HeatMapLayerA
         updateHeatMapLayer();
     }
 
+    private HeatMapSetBean set;
+
+    @Override
+    public void setHeatMapSet(HeatMapSetBean set) {
+        this.set=set;
+    }
+
     /**
      * Alternative radius for convolution
      */
@@ -94,6 +105,34 @@ public class GoogleMapHeatMapLayer extends HeatMapLayer implements HeatMapLayerA
     private TileOverlay heatMapLayer;
 
     private void updateHeatMapLayer() {
+        if(set==null){
+            return;
+        }
+        ArrayList<Integer> colorsArray=new ArrayList<>();
+        ArrayList<Float> levelArray=new ArrayList<>();
+        for(HeatMapColorBean color:set.colors){
+            colorsArray.add(color.color);
+            levelArray.add(color.weight_end);
+        }
+        Collections.reverse(colorsArray);
+        Collections.reverse(levelArray);
+        colorsArray.add(0, Color.argb(0, 0, 255, 255));
+        levelArray.add(0,0f);
+        Integer[] colors_=new Integer[colorsArray.size()];
+        colorsArray.toArray(colors_);
+        Float[] levels_=new Float[levelArray.size()];
+        levelArray.toArray(levels_);
+
+        int[] colors=new int[colors_.length];
+        for(int i=0;i<colors_.length;i++){
+            colors[i]=colors_[i];
+        }
+        float[] levels=new float[levels_.length];
+        for(int i=0;i<levels_.length;i++){
+            levels[i]=levels_[i];
+        }
+        Gradient gradient=new Gradient(colors,levels);
+
         if (googleMap != null) {
             if (heatMapLayer != null) {
                 heatMapLayer.clearTileCache();
@@ -107,9 +146,9 @@ public class GoogleMapHeatMapLayer extends HeatMapLayer implements HeatMapLayerA
                 points.add(LatLngUtils.mapLatLngFrom(latLngBean));
             }
             mProvider = new HeatmapTileProvider.Builder().data(points).build();
-            mProvider.setRadius(ALT_HEATMAP_RADIUS);
-            mProvider.setGradient(ALT_HEATMAP_GRADIENT);
-            mProvider.setOpacity(ALT_HEATMAP_OPACITY);
+            mProvider.setRadius(set.radius);
+            mProvider.setGradient(gradient);
+            mProvider.setOpacity(set.radius);
             heatMapLayer = googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
         }
     }

@@ -85,8 +85,8 @@ public class MapConstant {
     public static final String LAYER_FENCE_CIRCLE_CENTER_ID = "layer-fence-circle-center-id";
 
     //热力图
-    public static final String SOURCE_HEAT_MAP_ID = "source-fence-circle-center-id";
-    public static final String LAYER_HEAT_MAP_ID = "layer-fence-circle-center-id";
+    public static final String SOURCE_HEAT_MAP_ID = "source-heatmap-id";
+    public static final String LAYER_HEAT_MAP_ID = "layer-heatmap-id";
 
     public static final int ZINDEX_ARROW = 90;
     public static final int ZINDEX_GEOMETRY = 97;

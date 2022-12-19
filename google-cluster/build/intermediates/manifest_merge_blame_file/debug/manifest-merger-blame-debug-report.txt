@@ -1,0 +1,21 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.google.maps.android" >
+4
+5    <uses-sdk
+6        android:minSdkVersion="21"
+6-->/Users/druid/as/Application/MobileModule/mapview/google-cluster/src/main/AndroidManifest.xml
+7        android:targetSdkVersion="31" />
+7-->/Users/druid/as/Application/MobileModule/mapview/google-cluster/src/main/AndroidManifest.xml
+8    <!-- https://groups.google.com/group/adt-dev/browse_thread/thread/c059c0380998092b/6720093fb40fdaf9 -->
+9    <application>
+9-->/Users/druid/as/Application/MobileModule/mapview/google-cluster/src/main/AndroidManifest.xml:5:5-10:19
+10        <meta-data
+10-->/Users/druid/as/Application/MobileModule/mapview/google-cluster/src/main/AndroidManifest.xml:6:9-8:69
+11            android:name="com.google.android.gms.version"
+11-->/Users/druid/as/Application/MobileModule/mapview/google-cluster/src/main/AndroidManifest.xml:7:13-58
+12            android:value="@integer/google_play_services_version" />
+12-->/Users/druid/as/Application/MobileModule/mapview/google-cluster/src/main/AndroidManifest.xml:8:13-66
+13    </application>
+14
+15</manifest>

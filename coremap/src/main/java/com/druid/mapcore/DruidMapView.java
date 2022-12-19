@@ -2,6 +2,7 @@ package com.druid.mapcore;
 
 import android.os.Bundle;
 
+import com.druid.mapcore.bean.HeatMapSetBean;
 import com.druid.mapcore.bean.ImageRegisterBean;
 import com.druid.mapcore.bean.LatLngBean;
 import com.druid.mapcore.capture.CaptureDrawLayerApi;
@@ -51,7 +52,7 @@ public interface DruidMapView {
 
     void resetMarkerMainClickEvent();//操作marker点击事件
 
-    HeatMapLayerApi drawHeatMapLayer();
+    HeatMapLayerApi drawHeatMapLayer(HeatMapSetBean set);
 
     ClusterLayer drawClusterLayer();//开启-聚合图层
 

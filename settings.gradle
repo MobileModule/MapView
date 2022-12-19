@@ -1,9 +1,11 @@
 include 'main'
 include ':mapbox'
-include ':mapdruid'
+//include ':mapdruid'
 include ':coremap'
 include ':mapgoogle'
+include ':mapgaode'
 include ':google-cluster'
+//include ':amap-cluster'
 include ':test'
 if(isLocalModule.toBoolean()){
     include ':dimen'

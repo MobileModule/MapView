@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.druid.mapcore.DruidMapView;
+import com.druid.mapcore.bean.HeatMapSetBean;
 import com.druid.mapcore.bean.ImageRegisterBean;
 import com.druid.mapcore.bean.LatLngBean;
 import com.druid.mapcore.bean.LocationBean;
@@ -293,9 +294,10 @@ public class MapGoogleView extends LinearLayout implements DruidMapView,
     GoogleMapHeatMapLayer heatMapLayer = null;
 
     @Override
-    public HeatMapLayerApi drawHeatMapLayer() {
+    public HeatMapLayerApi drawHeatMapLayer(HeatMapSetBean set) {
         if (heatMapLayer == null) {
             this.heatMapLayer = new GoogleMapHeatMapLayer(getContext());
+            this.heatMapLayer.setHeatMapSet(set);
             layerApis.add(heatMapLayer);
             loadHeatMapLayerEvent();
         }

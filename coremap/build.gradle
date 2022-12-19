@@ -21,11 +21,11 @@ android {
 dependencies {
     implementation dependenciesList.Constraintlayout
     implementation dependenciesList.Material
-    if(isLocalModule.toBoolean()) {
-        api project(':dimen')
-    }else {
+//    if(isLocalModule.toBoolean()) {
+//        api project(':dimen')
+//    }else {
         api dependenciesList.DimenX2
-    }
+//    }
 }
 
 afterEvaluate {

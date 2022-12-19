@@ -29,6 +29,7 @@ import com.druid.mapbox.utils.LocationParseUtils;
 import com.druid.mapbox.utils.MapConstantUtils;
 import com.druid.mapbox.utils.MapImageSettingUtils;
 import com.druid.mapcore.DruidMapView;
+import com.druid.mapcore.bean.HeatMapSetBean;
 import com.druid.mapcore.bean.ImageRegisterBean;
 import com.druid.mapcore.bean.LatLngBean;
 import com.druid.mapcore.bean.LocationBean;
@@ -441,9 +442,10 @@ public class MapBoxView extends LinearLayout implements DruidMapView,
     MapBoxHeatMapLayer heatMapLayer = null;
 
     @Override
-    public HeatMapLayerApi drawHeatMapLayer() {
+    public HeatMapLayerApi drawHeatMapLayer(HeatMapSetBean set) {
         if (heatMapLayer == null) {
             this.heatMapLayer = new MapBoxHeatMapLayer(getContext());
+            this.heatMapLayer.setHeatMapSet(set);
             layerApis.add(heatMapLayer);
             loadHeatMapLayerEvent();
         }

@@ -1,5 +1,6 @@
 package com.druid.mapbox.heatmap;
 
+import static com.mapbox.mapboxsdk.style.expressions.Expression.get;
 import static com.mapbox.mapboxsdk.style.expressions.Expression.heatmapDensity;
 import static com.mapbox.mapboxsdk.style.expressions.Expression.interpolate;
 import static com.mapbox.mapboxsdk.style.expressions.Expression.linear;
@@ -12,12 +13,15 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.heatmapColor;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.heatmapIntensity;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.heatmapOpacity;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.heatmapRadius;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.heatmapWeight;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility;
 
 import android.content.Context;
 
 import com.druid.mapbox.utils.MapConstantUtils;
 import com.druid.mapcore.DruidMapView;
+import com.druid.mapcore.bean.HeatMapColorBean;
+import com.druid.mapcore.bean.HeatMapSetBean;
 import com.druid.mapcore.bean.LatLngBean;
 import com.druid.mapcore.heatmap.HeatMapLayer;
 import com.druid.mapcore.heatmap.HeatMapLayerApi;
@@ -27,6 +31,7 @@ import com.druid.mapcore.interfaces.MapInfoWindowClickListener;
 import com.druid.mapcore.interfaces.MapLoadedListener;
 import com.druid.mapcore.interfaces.MapMarkerClickListener;
 import com.druid.mapcore.interfaces.MapOnScaleListener;
+import com.druid.mapcore.utils.ColorUtils;
 import com.google.gson.JsonObject;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
@@ -34,11 +39,14 @@ import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.Style;
+import com.mapbox.mapboxsdk.style.expressions.Expression;
 import com.mapbox.mapboxsdk.style.layers.HeatmapLayer;
 import com.mapbox.mapboxsdk.style.layers.Property;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
+import com.mapbox.mapboxsdk.style.sources.Source;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MapBoxHeatMapLayer extends HeatMapLayer implements HeatMapLayerApi<MapView, MapboxMap> {
@@ -75,13 +83,29 @@ public class MapBoxHeatMapLayer extends HeatMapLayer implements HeatMapLayerApi<
 
     private void createHeatMapSource(Style style) {
         heatMapSource = new GeoJsonSource(MapConstantUtils.SOURCE_HEAT_MAP_ID);
-        style.addSource(heatMapSource);
+        if (style.getSource(MapConstantUtils.SOURCE_HEAT_MAP_ID) == null) {
+            style.addSource(heatMapSource);
+        }
         style.addLayer(createHeatMapLayer());
     }
 
     protected HeatmapLayer createHeatMapLayer() {
         heatMapLayer = new HeatmapLayer(MapConstantUtils.LAYER_HEAT_MAP_ID,
                 MapConstantUtils.SOURCE_HEAT_MAP_ID);
+        ArrayList<Expression.Stop> stopsArray = new ArrayList<>();
+//        stopsArray.add(stop(literal(0), rgba(0, 0, 0, 0)));
+        if (set != null) {
+            for (HeatMapColorBean color : set.colors) {
+                stopsArray.add(stop(literal(color.weight_end),
+                        rgb(ColorUtils.getColorR(color.color), ColorUtils.getColorG(color.color), ColorUtils.getColorB(color.color))));
+            }
+        }
+        stopsArray.add(stop(literal(0), rgba(0, 0, 0, 0)));
+
+        Collections.reverse(stopsArray);
+        Expression.Stop[] stops = new Expression.Stop[stopsArray.size()];
+        stopsArray.toArray(stops);
+
         heatMapLayer.setProperties(
 
                 // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
@@ -90,18 +114,23 @@ public class MapBoxHeatMapLayer extends HeatMapLayer implements HeatMapLayerApi<
                 heatmapColor(
                         interpolate(
                                 linear(), heatmapDensity(),
-                                literal(0), rgba(255, 255, 255, 0),
-                                literal(0.1), rgb(13, 252, 0),
-                                literal(0.4), rgb(255, 211, 0),
-                                literal(0.6), rgb(234, 91, 15),
-                                literal(0.9), rgb(255, 0, 0)
+                                stops
+//                                literal(0), rgba(255, 255, 255, 0),
+//                                literal(0.1), rgb(13, 252, 0),
+//                                literal(0.4), rgb(255, 211, 0),
+//                                literal(0.6), rgb(234, 91, 15),
+//                                literal(0.9), rgb(255, 0, 0)
                         )
                 ),
 
                 // Increase the heatmap weight based on frequency and property magnitude
-//                heatmapWeight(
-//
-//                ),
+                heatmapWeight(
+                        interpolate(
+                                linear(), get("mag"),
+                                stop(0, 0),
+                                stop(6, 1)
+                        )
+                ),
 
                 // Increase the heatmap color weight weight by zoom level
                 // heatmap-intensity is a multiplier on top of heatmap-weight
@@ -111,15 +140,23 @@ public class MapBoxHeatMapLayer extends HeatMapLayer implements HeatMapLayerApi<
                                 stop(0, 1),
                                 stop(9, 3)
                         )
-                )//,
+                ),
 
                 // Adjust the heatmap radius by zoom level
-//                heatmapRadius(
-//                ),
+                heatmapRadius(
+                        interpolate(
+                                linear(), zoom(),
+                                stop(0, set.radius)
+                        )
+                ),
 
                 // Transition from heatmap to circle layer by zoom level
-//                heatmapOpacity(
-//                )
+                heatmapOpacity(
+                        interpolate(
+                                linear(), zoom(),
+                                stop(0, set.alpha)
+                        )
+                )
         );
         return heatMapLayer;
     }
@@ -130,10 +167,31 @@ public class MapBoxHeatMapLayer extends HeatMapLayer implements HeatMapLayerApi<
         updateHeatMapLayer();
     }
 
-    private boolean visibleLayer=true;
+    private HeatMapSetBean set;
+
+    @Override
+    public void setHeatMapSet(HeatMapSetBean set) {
+        this.set = set;
+        if (mapboxMap != null) {
+            if (mapView != null) {
+                if (mapboxMap.getStyle().isFullyLoaded()) {
+                    //todo
+                    Source source = style.getSource(MapConstantUtils.SOURCE_HEAT_MAP_ID);
+                    if (source != null) {
+                        style.removeSource(MapConstantUtils.SOURCE_HEAT_MAP_ID);
+                        style.removeLayer(MapConstantUtils.LAYER_HEAT_MAP_ID);
+                        mapReadyLoad(true);
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean visibleLayer = true;
+
     @Override
     public boolean setLayerVisible(boolean visible) {
-        this.visibleLayer=visible;
+        this.visibleLayer = visible;
         if (visible) {
             heatMapLayer.withProperties(visibility(Property.VISIBLE));
         } else {
@@ -147,6 +205,7 @@ public class MapBoxHeatMapLayer extends HeatMapLayer implements HeatMapLayerApi<
             List<Feature> features = new ArrayList<>();
             for (LatLngBean latLngBean : source) {
                 JsonObject properties = new JsonObject();
+                properties.addProperty("mag", 0.5f);
                 Feature feature = Feature.fromGeometry(Point.fromLngLat(latLngBean.getLng(), latLngBean.getLat()), properties);
                 features.add(feature);
             }
