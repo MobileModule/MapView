@@ -45,7 +45,7 @@ public abstract class GoogleLineLayer extends LineDrawLayer implements MapCamera
     public static final String TAG = GoogleLineLayer.class.getName();
     protected MapView mapView = null;
     protected GoogleMap googleMap = null;
-    protected DruidMapView druidMapView=null;
+    protected DruidMapView druidMapView = null;
 
     public GoogleLineLayer(Context context) {
         super(context);
@@ -60,27 +60,50 @@ public abstract class GoogleLineLayer extends LineDrawLayer implements MapCamera
     protected boolean layerVisible = true;
 
     protected boolean setLayerVisible(boolean visible) {
-        if (trackerLine != null) {
-            if (visible) {
-                trackerLine.setVisible(true);
-            } else {
-                trackerLine.setVisible(false);
+        try {
+            if (trackerLine != null) {
+                if (visible) {
+                    trackerLine.setVisible(true);
+                } else {
+                    trackerLine.setVisible(false);
+                }
             }
-        }
-        for (Marker marker : pointMarkers) {
-            if (visible) {
-                marker.setVisible(true);
-            } else {
-                marker.setVisible(false);
+            for (Marker marker : pointMarkers) {
+                if (visible) {
+                    marker.setVisible(true);
+                } else {
+                    marker.setVisible(false);
+                }
             }
-        }
-
-        for (Marker marker : arrowMakers) {
-            if (visible) {
-                marker.setVisible(true);
-            } else {
-                marker.setVisible(false);
+            for (Marker marker : arrowMakers) {
+                if (visible) {
+                    marker.setVisible(true);
+                } else {
+                    marker.setVisible(false);
+                }
             }
+            if (playMarker != null) {
+                if (visible) {
+                    playMarker.setVisible(true);
+                } else {
+                    playMarker.setVisible(false);
+                }
+            }
+            if (playLine != null) {
+                if (visible) {
+                    playLine.setVisible(true);
+                } else {
+                    playLine.setVisible(false);
+                }
+            }
+            if (visible == false) {
+                playTracker(false);
+                if (listener != null) {
+                    listener.lineTrackMoveStop();
+                }
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
         this.layerVisible = visible;
         return visible;
@@ -102,8 +125,8 @@ public abstract class GoogleLineLayer extends LineDrawLayer implements MapCamera
             marker.remove();
         }
         pointMarkers.clear();
-        playLines.clear();
         clearArrowMaker();
+        clearPlayTracker();
     }
 
     //region line
@@ -192,10 +215,10 @@ public abstract class GoogleLineLayer extends LineDrawLayer implements MapCamera
             ArrayList<Point> graphicPoints = new ArrayList<>();
             for (int i = 0; i < source.size(); i++) {
                 LatLngBean location = source.get(i);
-                double lat=location.getLat(druidMapView.getStatusMapTile(), MapEngineType.MapGoogle);
-                double lng=location.getLng(druidMapView.getStatusMapTile(), MapEngineType.MapGoogle);
-                if (MapUtils.validLatLng(lat,lng)) {
-                    Point point = googleMap.getProjection().toScreenLocation(new LatLng(lat,lng));
+                double lat = location.getLat(druidMapView.getStatusMapTile(), MapEngineType.MapGoogle);
+                double lng = location.getLng(druidMapView.getStatusMapTile(), MapEngineType.MapGoogle);
+                if (MapUtils.validLatLng(lat, lng)) {
+                    Point point = googleMap.getProjection().toScreenLocation(new LatLng(lat, lng));
                     graphicPoints.add(point);
                 }
             }
@@ -331,10 +354,10 @@ public abstract class GoogleLineLayer extends LineDrawLayer implements MapCamera
         List<LatLngBean> points = new ArrayList<>();
         if (source.size() > 1) {
             for (LatLngBean latLng : source) {
-                double lat=latLng.getLat(druidMapView.getStatusMapTile(), MapEngineType.MapGoogle);
-                double lng=latLng.getLng(druidMapView.getStatusMapTile(), MapEngineType.MapGoogle);
+                double lat = latLng.getLat(druidMapView.getStatusMapTile(), MapEngineType.MapGoogle);
+                double lng = latLng.getLng(druidMapView.getStatusMapTile(), MapEngineType.MapGoogle);
                 if (MapUtils.validLatLng(lat, lng)) {
-                    points.add(new LatLngBean(lat,lng));
+                    points.add(new LatLngBean(lat, lng));
                 }
             }
             aLength = points.size();
@@ -391,10 +414,10 @@ public abstract class GoogleLineLayer extends LineDrawLayer implements MapCamera
         if (preLatLng != null) {
             float bearing = getBearing(preLatLng, latLng);
             Log.i(TAG, bearing + "");
-            if(playMarker!=null){
+            if (playMarker != null) {
                 playMarker.setPosition(latLng);
                 playMarker.setRotation(bearing);
-            }else {
+            } else {
                 BitmapDescriptor descriptor = BitmapDescriptorFactory.fromResource(R.drawable.icon_move_position);
                 MarkerOptions markerOption = new MarkerOptions().icon(descriptor)
                         .position(latLng)
@@ -418,6 +441,7 @@ public abstract class GoogleLineLayer extends LineDrawLayer implements MapCamera
 
     //region play line
     private List<LatLng> playLines = new ArrayList<>();
+    private Polyline playLine;
 
     protected int playLineColor = MapImageSettingUtils.getFencePolylineBorderColor(context);
 
@@ -428,7 +452,22 @@ public abstract class GoogleLineLayer extends LineDrawLayer implements MapCamera
         polylineOptions.color(playLineColor);
         polylineOptions.addAll(playLines);
         polylineOptions.zIndex(MapImageSettingUtils.ZINDEX_GEOMETRY);
-        Polyline polyline = googleMap.addPolyline(polylineOptions);
+        playLine = googleMap.addPolyline(polylineOptions);
+    }
+
+    protected void clearPlayTracker() {
+        playLines.clear();
+        newRoute.clear();
+        playTracker(false);
+        this.counter = 0;
+        this.steps = 0;
+        this.aLength = 0;
+        if (playMarker != null) {
+            playMarker.remove();
+        }
+        if (playLine != null) {
+            playLine.remove();
+        }
     }
     //endregion
     //endregion

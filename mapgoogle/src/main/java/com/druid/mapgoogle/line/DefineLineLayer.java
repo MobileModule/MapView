@@ -79,6 +79,11 @@ public class DefineLineLayer extends GoogleLineLayer implements LineDrawLayerApi
     }
 
     @Override
+    public void clearPlayTracker() {
+        super.clearPlayTracker();
+    }
+
+    @Override
     public void setPlayTrackListener(LineTrackMoveListener listener) {
         super.setPlayTrackListener(listener);
     }

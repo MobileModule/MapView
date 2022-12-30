@@ -55,6 +55,7 @@ public class DefineLineLayer extends MapBoxLineLayer implements LineDrawLayerApi
     @Override
     public void setLineSource(ArrayList<LatLngBean> points) {
         this.source = points;
+        clearPlayTracker();
         drawLine();
         drawPoint();
         drawArrowPoint();
@@ -84,6 +85,11 @@ public class DefineLineLayer extends MapBoxLineLayer implements LineDrawLayerApi
     @Override
     public boolean playTracker(boolean play) {
         return super.playTracker(play);
+    }
+
+    @Override
+    public void clearPlayTracker() {
+        super.clearPlayTracker();
     }
 
     @Override

@@ -509,6 +509,27 @@ public abstract class MapBoxLineLayer extends LineDrawLayer {
         );
         playLineSource.setGeoJson(feature);
     }
+
+    protected void clearPlayTracker() {
+        playTracker(false);
+        playLines.clear();
+        JsonObject properties = new JsonObject();
+        properties.addProperty(MapConstantUtils.FIELD_PLAY_COLOR,
+                ColorUtils.colorToRgbaString(playLineColor));
+        Feature feature = Feature.fromGeometry(
+                LineString.fromLngLats(playLines), properties
+        );
+        playLineSource.setGeoJson(feature);
+        //
+        newRoute.clear();
+        this.counter = 0;
+        this.steps = 0;
+        this.aLength = 0;
+        Feature[] features=new Feature[0];
+        FeatureCollection fc=FeatureCollection.fromFeatures(features);
+        playPointSource.setGeoJson(fc);
+        //
+    }
     //endregion
 
     public void onDestroyLayer() {

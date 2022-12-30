@@ -70,6 +70,7 @@ public class GoogleMapHeatMapLayer extends HeatMapLayer implements HeatMapLayerA
     @Override
     public void setHeatMapSet(HeatMapSetBean set) {
         this.set=set;
+        updateHeatMapLayer();
     }
 
     /**
@@ -116,7 +117,7 @@ public class GoogleMapHeatMapLayer extends HeatMapLayer implements HeatMapLayerA
         }
         Collections.reverse(colorsArray);
         Collections.reverse(levelArray);
-        colorsArray.add(0, Color.argb(0, 0, 255, 255));
+        colorsArray.add(0, Color.argb(0, 0, 0, 0));
         levelArray.add(0,0f);
         Integer[] colors_=new Integer[colorsArray.size()];
         colorsArray.toArray(colors_);
@@ -148,7 +149,7 @@ public class GoogleMapHeatMapLayer extends HeatMapLayer implements HeatMapLayerA
             mProvider = new HeatmapTileProvider.Builder().data(points).build();
             mProvider.setRadius(set.radius);
             mProvider.setGradient(gradient);
-            mProvider.setOpacity(set.radius);
+            mProvider.setOpacity(set.alpha/100d);
             heatMapLayer = googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(mProvider));
         }
     }

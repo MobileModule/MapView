@@ -21,5 +21,7 @@ public interface LineDrawLayerApi<T1, T2> extends LayerApi<T1, T2> {
      */
     boolean playTracker(boolean play);
 
+    void clearPlayTracker();
+
     void setPlayTrackListener(LineTrackMoveListener listener);
 }

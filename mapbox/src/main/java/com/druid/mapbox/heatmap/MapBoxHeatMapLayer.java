@@ -83,9 +83,7 @@ public class MapBoxHeatMapLayer extends HeatMapLayer implements HeatMapLayerApi<
 
     private void createHeatMapSource(Style style) {
         heatMapSource = new GeoJsonSource(MapConstantUtils.SOURCE_HEAT_MAP_ID);
-        if (style.getSource(MapConstantUtils.SOURCE_HEAT_MAP_ID) == null) {
-            style.addSource(heatMapSource);
-        }
+        style.addSource(heatMapSource);
         style.addLayer(createHeatMapLayer());
     }
 
@@ -93,7 +91,6 @@ public class MapBoxHeatMapLayer extends HeatMapLayer implements HeatMapLayerApi<
         heatMapLayer = new HeatmapLayer(MapConstantUtils.LAYER_HEAT_MAP_ID,
                 MapConstantUtils.SOURCE_HEAT_MAP_ID);
         ArrayList<Expression.Stop> stopsArray = new ArrayList<>();
-//        stopsArray.add(stop(literal(0), rgba(0, 0, 0, 0)));
         if (set != null) {
             for (HeatMapColorBean color : set.colors) {
                 stopsArray.add(stop(literal(color.weight_end),
@@ -115,11 +112,6 @@ public class MapBoxHeatMapLayer extends HeatMapLayer implements HeatMapLayerApi<
                         interpolate(
                                 linear(), heatmapDensity(),
                                 stops
-//                                literal(0), rgba(255, 255, 255, 0),
-//                                literal(0.1), rgb(13, 252, 0),
-//                                literal(0.4), rgb(255, 211, 0),
-//                                literal(0.6), rgb(234, 91, 15),
-//                                literal(0.9), rgb(255, 0, 0)
                         )
                 ),
 
@@ -154,7 +146,7 @@ public class MapBoxHeatMapLayer extends HeatMapLayer implements HeatMapLayerApi<
                 heatmapOpacity(
                         interpolate(
                                 linear(), zoom(),
-                                stop(0, set.alpha)
+                                stop(0, set.alpha / 100f)
                         )
                 )
         );
@@ -175,12 +167,12 @@ public class MapBoxHeatMapLayer extends HeatMapLayer implements HeatMapLayerApi<
         if (mapboxMap != null) {
             if (mapView != null) {
                 if (mapboxMap.getStyle().isFullyLoaded()) {
-                    //todo
                     Source source = style.getSource(MapConstantUtils.SOURCE_HEAT_MAP_ID);
                     if (source != null) {
-                        style.removeSource(MapConstantUtils.SOURCE_HEAT_MAP_ID);
                         style.removeLayer(MapConstantUtils.LAYER_HEAT_MAP_ID);
-                        mapReadyLoad(true);
+                        style.addLayer(createHeatMapLayer());
+                        setLayerVisible(visibleLayer);
+                        updateHeatMapLayer();
                     }
                 }
             }
